@@ -1,7 +1,7 @@
 @IWriteAbout =
   add_delete_events: ->
     jQuery( '.delete_action' ).on 'click', ->
-      
+
       for object_name in jQuery(@).attr("data-id").split(',')
         hidden_input = jQuery( "<input type='hidden' name='#{object_name}' />" )
         jQuery( 'form' ).append( hidden_input )
@@ -21,4 +21,3 @@
 jQuery =>
   @IAmFrom.add_delete_events()
   return
-  
