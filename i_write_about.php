@@ -50,15 +50,15 @@ function i_write_about_add_pages()
 function i_write_about_settings_page()
 {
   global $i_write_about_app;
-  
+
   $i_write_about_app->settings_controller->index();
 }
 
 add_action( 'admin_enqueue_scripts', 'i_write_about_add_styles' );
 function i_write_about_add_styles() {
-  wp_enqueue_style( 'i_write_about_style_settings', WP_PLUGIN_URL 
+  wp_enqueue_style( 'i_write_about_style_settings', WP_PLUGIN_URL
     . '/i_write_about/assets/build/stylesheets/settings.css' );
-  wp_enqueue_script( 'i_write_about_script_settings', WP_PLUGIN_URL 
+  wp_enqueue_script( 'i_write_about_script_settings', WP_PLUGIN_URL
     . '/i_write_about/assets/build/javascripts/settings.js' );
 }
 
