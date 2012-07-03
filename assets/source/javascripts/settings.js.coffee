@@ -19,5 +19,5 @@
     return
 
 jQuery =>
-  @IAmFrom.add_delete_events()
+  @IWriteAbout.add_delete_events()
   return

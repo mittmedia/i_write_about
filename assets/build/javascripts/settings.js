@@ -26,7 +26,7 @@
   };
 
   jQuery(function() {
-    _this.IAmFrom.add_delete_events();
+    _this.IWriteAbout.add_delete_events();
   });
 
 }).call(this);

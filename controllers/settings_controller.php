@@ -8,7 +8,7 @@ namespace IWriteAbout
     {
       global $current_site;
       global $site;
-      global $areas;
+      global $subjects;
       global $content;
 
       $site = \WpMvc\Site::find( $current_site->id );
@@ -37,46 +37,46 @@ namespace IWriteAbout
         static::redirect_to( "{$_SERVER['REQUEST_URI']}&i_write_about_updated=1" );
       }
 
-      $areas = array();
+      $subjects = array();
 
-      $this->get_areas_from_sitemeta( $areas, $site );
+      $this->get_subjects_from_sitemeta( $subjects, $site );
 
       $content = array();
 
-      $this->make_form_content_from_areas( $content, $areas, $site );
-      
-      $this->make_form_content_from_new_area( $content, $site );
+      $this->make_form_content_from_subjects( $content, $subjects, $site );
+
+      $this->make_form_content_from_new_subject( $content, $site );
 
       $this->render( $this, "index" );
     }
 
-    private function get_areas_from_sitemeta( &$areas, $site )
+    private function get_subjects_from_sitemeta( &$subjects, $site )
     {
       $sitemeta_vars = get_object_vars( $site->sitemeta );
 
       foreach ( $sitemeta_vars as $key => $value ) {
         if ( preg_match( '/^((?!.*_link)i_write_about.*)$/', $key ) )
-          array_push( $areas, $site->sitemeta->{$key} );
+          array_push( $subjects, $site->sitemeta->{$key} );
       }
     }
-    private function make_form_content_from_areas( &$content, $areas, $site )
+    private function make_form_content_from_subjects( &$content, $subjects, $site )
     {
-      foreach ( $areas as $area ) {
+      foreach ( $subjects as $subject ) {
         $content[] = array(
           'title' => __( 'Name' ),
-          'name' => $site->sitemeta->{$area->meta_key}->meta_key,
+          'name' => $site->sitemeta->{$subject->meta_key}->meta_key,
           'type' => 'text',
-          'object' => $site->sitemeta->{$area->meta_key},
-          'default_value' => $site->sitemeta->{$area->meta_key}->meta_value,
+          'object' => $site->sitemeta->{$subject->meta_key},
+          'default_value' => $site->sitemeta->{$subject->meta_key}->meta_value,
           'key' => 'meta_value'
         );
 
         $content[] = array(
           'title' => __( 'Link' ),
-          'name' => $site->sitemeta->{$area->meta_key . '_link'}->meta_key,
+          'name' => $site->sitemeta->{$subject->meta_key . '_link'}->meta_key,
           'type' => 'text',
-          'object' => $site->sitemeta->{$area->meta_key . '_link'},
-          'default_value' => $site->sitemeta->{$area->meta_key . '_link'}->meta_value,
+          'object' => $site->sitemeta->{$subject->meta_key . '_link'},
+          'default_value' => $site->sitemeta->{$subject->meta_key . '_link'}->meta_value,
           'key' => 'meta_value'
         );
 
@@ -84,17 +84,17 @@ namespace IWriteAbout
           'title' => __( 'Delete' ),
           'type' => 'delete_action',
           'delete_objects' => array(
-            $site->sitemeta->{$area->meta_key}->meta_key,
-            $site->sitemeta->{$area->meta_key . '_link'}->meta_key
+            $site->sitemeta->{$subject->meta_key}->meta_key,
+            $site->sitemeta->{$subject->meta_key . '_link'}->meta_key
             ),
-          'object' => $site->sitemeta->{$area->meta_key}
+          'object' => $site->sitemeta->{$subject->meta_key}
         );
 
         $content[] = array( 'type' => 'spacer' );
       }
     }
 
-    private function make_form_content_from_new_area( &$content, &$site )
+    private function make_form_content_from_new_subject( &$content, &$site )
     {
       $site->sitemeta->i_write_about = \WpMvc\SiteMeta::virgin();
       $site->sitemeta->i_write_about->site_id = $site->id;
