@@ -54,8 +54,8 @@ function i_write_about_settings_page()
   $i_write_about_app->settings_controller->index();
 }
 
-add_action( 'admin_enqueue_scripts', 'i_write_about_add_styles' );
-function i_write_about_add_styles() {
+add_action( 'admin_enqueue_scripts', 'i_write_about_add_scripts_and_styles' );
+function i_write_about_add_scripts_and_styles() {
   wp_enqueue_style( 'i_write_about_style_settings', WP_PLUGIN_URL
     . '/i_write_about/assets/build/stylesheets/settings.css' );
   wp_enqueue_script( 'i_write_about_script_settings', WP_PLUGIN_URL
