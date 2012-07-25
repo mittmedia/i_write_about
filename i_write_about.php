@@ -44,7 +44,7 @@ $i_write_about_app->init( 'IWriteAbout', WP_PLUGIN_DIR . '/i_write_about' );
 add_action( 'network_admin_menu', 'i_write_about_add_pages' );
 function i_write_about_add_pages()
 {
-  add_submenu_page( 'settings.php', 'I Write About Settings', 'I Write About', 'Super Admin', 'i_write_about_settings', 'i_write_about_settings_page');
+  add_submenu_page( 'settings.php', 'I Write About Settings', 'I Write About', 'manage_network', 'i_write_about_settings', 'i_write_about_settings_page');
 }
 
 function i_write_about_settings_page()
